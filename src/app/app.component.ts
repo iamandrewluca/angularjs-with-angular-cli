@@ -1,10 +1,22 @@
-import { Component } from '@angular/core';
+import appTemplate from './app.component.html'
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {
-  title = 'my-app';
+// @Inject(['$ccokies']) maybe create decorators like in Angular?
+class AppController {
+  user: string = null;
+  $cookies: ng.cookies.ICookiesService = null;
+
+  constructor($cookies: ng.cookies.ICookiesService) {
+    this.$cookies = $cookies
+    this.user = 'world';
+  }
+
+  onClick() {
+    this.$cookies.put('666', '666')
+    window.alert(this.user)
+  }
+}
+
+export const AppComponent = {
+  template: appTemplate,
+  controller: ['$cookies', AppController],
 }
